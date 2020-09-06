@@ -107,7 +107,15 @@ describe('Solver', () => {
   describe('walk', () => {
     it('returns array of letter positions', () => {
       const words = solver.walk();
-      assert.deepEqual(words[0].map(x => x.letter).join(''), 'boilingpoint');
+      assert.deepEqual(words[0].map(x => x.letter).join(''), 'alkali');
+    });
+
+    it('finds all words', () => {
+      // const words = solver.walk();
+      // console.log(words.map(x => {
+      //   return x.map(xx => xx.letter)
+      // }))
+      assert.equal(solver.walk().length, 22);
     });
   });
 });

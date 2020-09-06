@@ -30,7 +30,7 @@ const words = [
   'halogen',
   'hydrocarbon',
   'ions',
-  'keytone',
+  'ketone',
   'matter',
   'molecule',
   'nucleic acid',
@@ -42,21 +42,62 @@ const words = [
   'valence',
 ];
 
-function checkRight(word, row = 0, column = 0, index = 0, answers = []) {
+function right(row, column) {
+  return [row, column + 1];
+}
+
+function downRight(row, column) {
+  return [row + 1, column + 1];
+}
+
+function down(row, column) {
+  return [row + 1, column];
+}
+
+function downLeft(row, column) {
+  return [row + 1, column - 1];
+}
+
+function left(row, column) {
+  return [row, column - 1];
+}
+
+function upLeft(row, column) {
+  return [row - 1, column - 1];
+}
+
+function up(row, column) {
+  return [row - 1, column];
+}
+
+function upRight(row, column) {
+  return [row - 1, column + 1];
+}
+
+const strategies = [
+  right,
+  downRight,
+  down,
+  downLeft,
+  left,
+  upLeft,
+  up,
+  upRight,
+];
+
+function check(word, advanceStrategy, row = 0, column = 0, index = 0, answers = []) {
+  if (row == 4 && column == 6) {
+    debugger;
+  }
   if (index === word.length) {
     return answers;
-  } else if (formattedGrid()[row][column] === word[index]) {
+  } else if (formattedGrid()[row] && formattedGrid()[row][column] === word[index]) {
     answers.push({
       row,
       column,
       letter: word[index],
     });
-    column++;
-    if (column === 15) {
-      row++;
-      column = 0;
-    }
-    return checkRight(word, row, column, index + 1, answers);
+    return check(word, advanceStrategy, ...advanceStrategy(row, column), index + 1, answers);
   } else {
     return false;
   }
@@ -65,8 +106,10 @@ function checkRight(word, row = 0, column = 0, index = 0, answers = []) {
 function findWord(word) {
   for(let row = 0; row < formattedGrid().length; row++) {
     for(let column = 0; column < formattedGrid()[row].length; column++) {
-      if (result = checkRight(word, row, column)) {
-        return result;
+      for (const advanceStrategy of strategies) {
+        if (result = check(word, advanceStrategy, row, column)) {
+          return result;
+        }
       }
     }
   }
