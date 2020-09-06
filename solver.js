@@ -40,7 +40,7 @@ const words = [
   'valence',
 ];
 
-let answers = [];
+let foundWords = [];
 
 const adjacentSquares = [
   [-1, -1],  [0, -1], [1, -1],
@@ -48,25 +48,19 @@ const adjacentSquares = [
   [-1, 1],   [0, 1],  [1, 1],
 ];
 
-function findAdjacentSquares(row = 0, column = 0, index = null) {
-  const maxRowSize = grid[0].length;
-  if (index) {
-    row = Math.floor(index / maxRowSize);
-    col = index % maxRowSize;
-  }
+// function findAdjacentSquares(row, column) {
+//   return adjacentSquares.map(offset => {
+//     const adjacentRow = formattedGrid()[row + offset[1]];
+//     if (adjacentRow) {
+//       return adjacentRow[column + offset[0]];
+//     }
+//   });
+// }
 
-  return adjacentSquares.map(offset => {
-    const adjacentRow = formattedGrid()[row + offset[1]];
-    if (adjacentRow) {
-      return adjacentRow[column + offset[0]];
-    }
-  });
-}
-
-function getDirection(adjacentLetters, value) {
-  const index = adjacentLetters.findIndex(x => x == value);
-  return adjacentSquares[index];
-}
+// function getDirection(adjacentLetters, value) {
+//   const index = adjacentLetters.findIndex(x => x == value);
+//   return adjacentSquares[index];
+// }
 
 function getNextLetterInDirection(currentSquare, offset) {
   const row = formattedGrid()[currentSquare[0] + offset[1]];
@@ -75,15 +69,30 @@ function getNextLetterInDirection(currentSquare, offset) {
   }
 }
 
+function checkRight(word, answers = [], row = 0, column = 0, index = 0) {
+  if (index === word.length - 1) {
+    return answers;
+  } else if (formattedGrid()[row][column] === word[index]) {
+    answers.push({
+      row,
+      column,
+      letter: word[index],
+    });
+    column++;
+    if (column === 15) {
+      row++;
+      column = 0;
+    }
+    return checkRight(word, answers, row, column, index);
+  } else {
+    return false;
+  }
+}
+
 // todo how do we go to next dup letter? idea - can we truncate the array prefix and search on the remaining?
 function findWord(word) {
-
-  let index = 0;
-  let array = formattedGrid().flatten(); // initially search the whole grid
-  while (array.includes(word[index])) {
-    
-    array = findAdjacentSquares(array.findIndex(x => x === word[index]));
-    index += 1;
+  if (result = checkRight(word)) {
+    foundWords.push(result);
   }
 }
 

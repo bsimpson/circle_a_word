@@ -43,10 +43,6 @@ describe('Solver', () => {
     it('preserves positioning with out of bounds', () => {
       assert.deepEqual(solver.findAdjacentSquares(0, 0), [undefined, undefined, undefined, undefined, 'd', 'b', undefined, 'i', 'r']);
     });
-
-    it('wraps long row values', () => {
-      assert.deepEqual(solver.findAdjacentSquares(null, null, 16), ['d', 'b', 'o', 'i', 'r', 'g', 's', 'f', 'r']);
-    });
   });
 
   describe('getDirection', () => {
