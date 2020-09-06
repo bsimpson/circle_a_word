@@ -1,0 +1,21 @@
+{
+  "name": "circle_a_word",
+  "version": "1.0.0",
+  "description": "A circle a word solver",
+  "main": "node index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "npx mocha",
+    "server": "node index.js"
+  },
+  "author": "Ben Simpson",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^8.1.3"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
