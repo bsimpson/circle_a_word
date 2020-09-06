@@ -48,12 +48,23 @@ const adjacentSquares = [
   [-1, 1],   [0, 1],  [1, 1],
 ];
 
-function findAdjacentSquares(row, column) {
-  return adjacentSquares.map(offset => formattedGrid()[row + offset[0], column + offset[1]]);
+function findAdjacentSquares(row = 0, column = 0, index = null) {
+  const maxRowSize = grid[0].length;
+  if (index) {
+    row = Math.floor(index / maxRowSize);
+    col = index % maxRowSize;
+  }
+
+  return adjacentSquares.map(offset => {
+    const adjacentRow = formattedGrid()[row + offset[1]];
+    if (adjacentRow) {
+      return adjacentRow[column + offset[0]];
+    }
+  });
 }
 
-function getDirection(array, value) {
-  const index = array.findIndex(x => x == value);
+function getDirection(adjacentLetters, value) {
+  const index = adjacentLetters.findIndex(x => x == value);
   return adjacentSquares[index];
 }
 
@@ -61,6 +72,18 @@ function getNextLetterInDirection(currentSquare, offset) {
   const row = formattedGrid()[currentSquare[0] + offset[1]];
   if (row) { // handles case where we access out of bounds
     return row[currentSquare[1] + offset[0]];
+  }
+}
+
+// todo how do we go to next dup letter? idea - can we truncate the array prefix and search on the remaining?
+function findWord(word) {
+
+  let index = 0;
+  let array = formattedGrid().flatten(); // initially search the whole grid
+  while (array.includes(word[index])) {
+    
+    array = findAdjacentSquares(array.findIndex(x => x === word[index]));
+    index += 1;
   }
 }
 
@@ -73,16 +96,8 @@ function formattedWords() {
 }
 
 function walk() {
-  formattedWords.forEach((word, currentRow) => {
-    const firstLetter = word[0];
-    formattedGrid().forEach((row) => {
-      const currentColumn = row.findIndex(gridLetter => gridLetter === firstLetter);
-
-      if (currentColumn) { // letter was found in row
-        findAdjacentSquares(currentRow, currentColumn)
-      }
-    })
-  })
+  answers = []; // reset work
+  formattedWords.forEach(findWord);
 }
 
 module.exports = {

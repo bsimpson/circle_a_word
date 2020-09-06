@@ -37,12 +37,16 @@ describe('Solver', () => {
 
   describe('findAdjacentSquares', () => {
     it('finds letters adjacent to a given square', () => {
-      assert(solver.findAdjacentSquares(2, 1), ['i', 'r', 'g', 's', 's', 'f', 'r', 't', 'd', 'n']);
+      assert.deepEqual(solver.findAdjacentSquares(2, 1), ['i', 'r', 'g', 's', 'f', 'r', 't', 'd', 'n']);
     });
 
     it('preserves positioning with out of bounds', () => {
-      assert(solver.findAdjacentSquares(0, 0), [undefined, undefined, undefined, undefined, 'd', 'b', undefined, 'i', 'r']);
-    })
+      assert.deepEqual(solver.findAdjacentSquares(0, 0), [undefined, undefined, undefined, undefined, 'd', 'b', undefined, 'i', 'r']);
+    });
+
+    it('wraps long row values', () => {
+      assert.deepEqual(solver.findAdjacentSquares(null, null, 16), ['d', 'b', 'o', 'i', 'r', 'g', 's', 'f', 'r']);
+    });
   });
 
   describe('getDirection', () => {
@@ -53,14 +57,34 @@ describe('Solver', () => {
   describe('getNextLetterInDirection', () => {
     it('returns letter to the right', () => {
       assert.equal(solver.getNextLetterInDirection([2, 1], [1, 0]), 'r');
-    })
+    });
 
     it('returns the letter to the lower right', () => {
       assert.equal(solver.getNextLetterInDirection([2, 1], [1, 1]), 'n');
-    })
+    });
 
     it('handles undefined', () => {
       assert.equal(solver.getNextLetterInDirection([0, 0], [-1, -1]), undefined);
+    });
+  });
+
+  describe('findWord', () => {
+    xit('returns array of letter positions', () => {
+      const word = 'boilingpoint';
+      assert.deepEqual(solver.findWord(word), [
+        [0, 1],
+        [0, 2],
+        [0, 3],
+        [0, 4],
+        [0, 5],
+        [0, 6],
+        [0, 7],
+        [0, 8],
+        [0, 9],
+        [0, 10],
+        [0, 11],
+        [0, 12],
+      ])
     })
   })
 });
