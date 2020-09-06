@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "npx mocha",
-    "server": "node index.js"
+    "server": "node index.js",
+    "netlify": "npm install pug-cli; node node_modules/pug-cli/index.js views/ --out ./public"
   },
   "author": "Ben Simpson",
   "license": "ISC",
