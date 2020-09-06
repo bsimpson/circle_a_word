@@ -86,9 +86,6 @@ const strategies = [
 ];
 
 function check(word, advanceStrategy, row = 0, column = 0, index = 0, answers = []) {
-  if (row == 4 && column == 6) {
-    debugger;
-  }
   if (index === word.length) {
     return answers;
   } else if (formattedGrid()[row] && formattedGrid()[row][column] === word[index]) {

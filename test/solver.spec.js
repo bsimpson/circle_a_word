@@ -123,10 +123,6 @@ describe('Solver', () => {
     });
 
     it('finds all words', () => {
-      // const words = solver.walk();
-      // console.log(words.map(x => {
-      //   return x.map(xx => xx.letter)
-      // }))
       assert.equal(solver.walk().length, 22);
     });
   });
