@@ -43,61 +43,73 @@ describe('Solver', () => {
           row: 0,
           column: 1,
           letter: 'b',
+          word,
         },
         {
           column: 2,
           letter: "o",
           row: 0,
+          word,
         },
         {
           column: 3,
           letter: "i",
           row: 0,
+          word,
         },
         {
           column: 4,
           letter: "l",
           row: 0,
+          word,
         },
         {
           column: 5,
           letter: "i",
           row: 0,
+          word,
         },
         {
           column: 6,
           letter: "n",
           row: 0,
+          word,
         },
         {
           column: 7,
           letter: "g",
           row: 0,
+          word,
         },
         {
           column: 8,
           letter: "p",
           row: 0,
+          word,
         },
         {
           column: 9,
           letter: "o",
           row: 0,
+          word,
         },
         {
           column: 10,
           letter: "i",
           row: 0,
+          word,
         },
         {
           column: 11,
           letter: "n",
           row: 0,
+          word,
         },
         {
           column: 12,
           letter: "t",
           row: 0,
+          word,
         },
       ]);
     });
