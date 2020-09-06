@@ -34,4 +34,33 @@ describe('Solver', () => {
       assert.equal(solver.formattedWords()[0], 'alkali');
     });
   });
+
+  describe('findAdjacentSquares', () => {
+    it('finds letters adjacent to a given square', () => {
+      assert(solver.findAdjacentSquares(2, 1), ['i', 'r', 'g', 's', 's', 'f', 'r', 't', 'd', 'n']);
+    });
+
+    it('preserves positioning with out of bounds', () => {
+      assert(solver.findAdjacentSquares(0, 0), [undefined, undefined, undefined, undefined, 'd', 'b', undefined, 'i', 'r']);
+    })
+  });
+
+  describe('getDirection', () => {
+    const adjacentLetters = ['i', 'r', 'g', 's', 's', 'f', 'r', 't', 'd', 'n'];
+    assert.deepEqual(solver.getDirection(adjacentLetters, 'r'), [0, -1]);
+  });
+
+  describe('getNextLetterInDirection', () => {
+    it('returns letter to the right', () => {
+      assert.equal(solver.getNextLetterInDirection([2, 1], [1, 0]), 'r');
+    })
+
+    it('returns the letter to the lower right', () => {
+      assert.equal(solver.getNextLetterInDirection([2, 1], [1, 1]), 'n');
+    })
+
+    it('handles undefined', () => {
+      assert.equal(solver.getNextLetterInDirection([0, 0], [-1, -1]), undefined);
+    })
+  })
 });

@@ -49,12 +49,19 @@ const adjacentSquares = [
 ];
 
 function findAdjacentSquares(row, column) {
-  return adjacentSquares.reduce((previousValue, currentValue) => {
-    const x = currentValue[0];
-    const y = currentvalue[1];
-    previousValue[currentValue] = formattedGrid()[row + x, column + y]; // offset
-    return previousValue;
-  }, {})
+  return adjacentSquares.map(offset => formattedGrid()[row + offset[0], column + offset[1]]);
+}
+
+function getDirection(array, value) {
+  const index = array.findIndex(x => x == value);
+  return adjacentSquares[index];
+}
+
+function getNextLetterInDirection(currentSquare, offset) {
+  const row = formattedGrid()[currentSquare[0] + offset[1]];
+  if (row) { // handles case where we access out of bounds
+    return row[currentSquare[1] + offset[0]];
+  }
 }
 
 function formattedGrid() {
@@ -72,7 +79,7 @@ function walk() {
       const currentColumn = row.findIndex(gridLetter => gridLetter === firstLetter);
 
       if (currentColumn) { // letter was found in row
-        
+        findAdjacentSquares(currentRow, currentColumn)
       }
     })
   })
@@ -81,4 +88,7 @@ function walk() {
 module.exports = {
   formattedGrid,
   formattedWords,
+  findAdjacentSquares,
+  getDirection,
+  getNextLetterInDirection,
 }
