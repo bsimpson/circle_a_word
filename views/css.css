@@ -1,0 +1,51 @@
+body {
+  font-family: 'Roboto Mono', monospace;
+}
+
+content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#explaination {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+#spacer {
+  width: 100px;
+}
+
+footer {
+  align-content: center;
+}
+
+table {
+  border-spacing: 20px;
+  font-size: 1.5em;
+}
+
+td {
+  opacity: .2;
+}
+
+td[data-highlight] {
+  opacity: 1;
+}
+
+td[data-highlight-1] { color: #001F3F; }
+td[data-highlight-2] { color: #0074D9; }
+td[data-highlight-3] { color: #7FDBFF; }
+td[data-highlight-4] { color: #39CCCC; }
+td[data-highlight-5] { color: #3D9970; }
+td[data-highlight-6] { color: #2ECC40; }
+td[data-highlight-7] { color: #01FF70; }
+td[data-highlight-8] { color: #FFDC00; }
+td[data-highlight-9] { color: #FF851B; }
+td[data-highlight-10] { color: #FF4136; }
+td[data-highlight-11] { color: #F012BE; }
+td[data-highlight-12] { color: #B10DC9; }
+td[data-highlight-13] { color: #85144B; }

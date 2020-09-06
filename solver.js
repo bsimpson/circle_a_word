@@ -96,6 +96,7 @@ function check(word, advanceStrategy, row = 0, column = 0, index = 0, answers = 
       row,
       column,
       letter: word[index],
+      word,
     });
     return check(word, advanceStrategy, ...advanceStrategy(row, column), index + 1, answers);
   } else {
@@ -127,9 +128,31 @@ function walk() {
   return formattedWords().map(findWord).filter(x => x)
 }
 
+function toHTML() {
+  const solution = [].concat(...walk());
+
+  let html = '<table>';
+  formattedGrid().forEach((row, rowIndex) => {
+    html += '<tr>';
+    row.forEach((column, columnIndex) => {
+      if (word = solution.find(character => character.row == rowIndex && character.column == columnIndex)) {
+        html += `<td data-highlight data-highlight-${formattedWords().findIndex(x => x === word.word ) % 13}>${column}</td>`;
+      } else {
+        html += `<td>${column}</td>`;
+      }
+    })
+    html += '</tr>';
+  })
+  html += '</table>';
+
+  return html;
+}
+
 module.exports = {
   formattedGrid,
   formattedWords,
   findWord,
   walk,
+  toHTML,
+  formattedWords,
 }
