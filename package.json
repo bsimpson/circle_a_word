@@ -18,6 +18,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "pug": "^3.0.0",
+    "pug-cli": "^1.0.0-alpha6",
     "table": "^6.0.3",
     "tableify": "^1.1.0"
   }
