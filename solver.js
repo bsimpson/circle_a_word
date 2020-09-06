@@ -1,3 +1,5 @@
+const { nextTick } = require("process");
+
 const grid = [
   'dboilingpointo',
   'irganoxidation',
@@ -40,37 +42,8 @@ const words = [
   'valence',
 ];
 
-let foundWords = [];
-
-const adjacentSquares = [
-  [-1, -1],  [0, -1], [1, -1],
-  [-1, 0],   [0, 0],  [1, 0],
-  [-1, 1],   [0, 1],  [1, 1],
-];
-
-// function findAdjacentSquares(row, column) {
-//   return adjacentSquares.map(offset => {
-//     const adjacentRow = formattedGrid()[row + offset[1]];
-//     if (adjacentRow) {
-//       return adjacentRow[column + offset[0]];
-//     }
-//   });
-// }
-
-// function getDirection(adjacentLetters, value) {
-//   const index = adjacentLetters.findIndex(x => x == value);
-//   return adjacentSquares[index];
-// }
-
-function getNextLetterInDirection(currentSquare, offset) {
-  const row = formattedGrid()[currentSquare[0] + offset[1]];
-  if (row) { // handles case where we access out of bounds
-    return row[currentSquare[1] + offset[0]];
-  }
-}
-
-function checkRight(word, answers = [], row = 0, column = 0, index = 0) {
-  if (index === word.length - 1) {
+function checkRight(word, row = 0, column = 0, index = 0, answers = []) {
+  if (index === word.length) {
     return answers;
   } else if (formattedGrid()[row][column] === word[index]) {
     answers.push({
@@ -83,16 +56,19 @@ function checkRight(word, answers = [], row = 0, column = 0, index = 0) {
       row++;
       column = 0;
     }
-    return checkRight(word, answers, row, column, index);
+    return checkRight(word, row, column, index + 1, answers);
   } else {
     return false;
   }
 }
 
-// todo how do we go to next dup letter? idea - can we truncate the array prefix and search on the remaining?
 function findWord(word) {
-  if (result = checkRight(word)) {
-    foundWords.push(result);
+  for(let row = 0; row < formattedGrid().length; row++) {
+    for(let column = 0; column < formattedGrid()[row].length; column++) {
+      if (result = checkRight(word, row, column)) {
+        return result;
+      }
+    }
   }
 }
 
@@ -105,14 +81,12 @@ function formattedWords() {
 }
 
 function walk() {
-  answers = []; // reset work
-  formattedWords.forEach(findWord);
+  return formattedWords().map(findWord).filter(x => x)
 }
 
 module.exports = {
   formattedGrid,
   formattedWords,
-  findAdjacentSquares,
-  getDirection,
-  getNextLetterInDirection,
+  findWord,
+  walk,
 }

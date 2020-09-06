@@ -35,52 +35,79 @@ describe('Solver', () => {
     });
   });
 
-  describe('findAdjacentSquares', () => {
-    it('finds letters adjacent to a given square', () => {
-      assert.deepEqual(solver.findAdjacentSquares(2, 1), ['i', 'r', 'g', 's', 'f', 'r', 't', 'd', 'n']);
-    });
-
-    it('preserves positioning with out of bounds', () => {
-      assert.deepEqual(solver.findAdjacentSquares(0, 0), [undefined, undefined, undefined, undefined, 'd', 'b', undefined, 'i', 'r']);
-    });
-  });
-
-  describe('getDirection', () => {
-    const adjacentLetters = ['i', 'r', 'g', 's', 's', 'f', 'r', 't', 'd', 'n'];
-    assert.deepEqual(solver.getDirection(adjacentLetters, 'r'), [0, -1]);
-  });
-
-  describe('getNextLetterInDirection', () => {
-    it('returns letter to the right', () => {
-      assert.equal(solver.getNextLetterInDirection([2, 1], [1, 0]), 'r');
-    });
-
-    it('returns the letter to the lower right', () => {
-      assert.equal(solver.getNextLetterInDirection([2, 1], [1, 1]), 'n');
-    });
-
-    it('handles undefined', () => {
-      assert.equal(solver.getNextLetterInDirection([0, 0], [-1, -1]), undefined);
-    });
-  });
-
   describe('findWord', () => {
-    xit('returns array of letter positions', () => {
+    it('returns array of letter positions', () => {
       const word = 'boilingpoint';
       assert.deepEqual(solver.findWord(word), [
-        [0, 1],
-        [0, 2],
-        [0, 3],
-        [0, 4],
-        [0, 5],
-        [0, 6],
-        [0, 7],
-        [0, 8],
-        [0, 9],
-        [0, 10],
-        [0, 11],
-        [0, 12],
-      ])
-    })
-  })
+        {
+          row: 0,
+          column: 1,
+          letter: 'b',
+        },
+        {
+          column: 2,
+          letter: "o",
+          row: 0,
+        },
+        {
+          column: 3,
+          letter: "i",
+          row: 0,
+        },
+        {
+          column: 4,
+          letter: "l",
+          row: 0,
+        },
+        {
+          column: 5,
+          letter: "i",
+          row: 0,
+        },
+        {
+          column: 6,
+          letter: "n",
+          row: 0,
+        },
+        {
+          column: 7,
+          letter: "g",
+          row: 0,
+        },
+        {
+          column: 8,
+          letter: "p",
+          row: 0,
+        },
+        {
+          column: 9,
+          letter: "o",
+          row: 0,
+        },
+        {
+          column: 10,
+          letter: "i",
+          row: 0,
+        },
+        {
+          column: 11,
+          letter: "n",
+          row: 0,
+        },
+        {
+          column: 12,
+          letter: "t",
+          row: 0,
+        },
+      ]);
+    });
+  });
+
+
+  describe('walk', () => {
+    it('returns array of letter positions', () => {
+      const words = solver.walk();
+      assert.deepEqual(words[0].map(x => x.letter).join(''), 'boilingpoint');
+    });
+  });
 });
