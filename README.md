@@ -4,6 +4,8 @@ Inspired by the Circle-A-Word puzzles
 
 ![Circle-A-Word magazine cover](circle_a_word.jpg)
 
+![Screenshot of website](website_preview.png)
+
 ## Rules
 
 You are given a grid and a list of words. The words are contained in the grid and can be found in either:
